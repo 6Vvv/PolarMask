@@ -7,13 +7,11 @@ from setuptools import Extension, find_packages, setup
 import numpy as np
 from Cython.Build import cythonize
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension
-
-
+#git learning
 def readme():
     with open('README.md', encoding='utf-8') as f:
         content = f.read()
     return content
-
 
 MAJOR = 1
 MINOR = 0
@@ -22,7 +20,6 @@ SUFFIX = 'rc0'
 SHORT_VERSION = '{}.{}.{}{}'.format(MAJOR, MINOR, PATCH, SUFFIX)
 
 version_file = 'mmdet/version.py'
-
 
 def get_git_hash():
 
@@ -49,7 +46,6 @@ def get_git_hash():
 
     return sha
 
-
 def get_hash():
     if os.path.exists('.git'):
         sha = get_git_hash()[:7]
@@ -64,7 +60,6 @@ def get_hash():
 
     return sha
 
-
 def write_version_py():
     content = """# GENERATED VERSION FILE
 # TIME: {}
@@ -78,12 +73,10 @@ short_version = '{}'
     with open(version_file, 'w') as f:
         f.write(content.format(time.asctime(), VERSION, SHORT_VERSION))
 
-
 def get_version():
     with open(version_file, 'r') as f:
         exec(compile(f.read(), version_file, 'exec'))
     return locals()['__version__']
-
 
 def make_cuda_ext(name, module, sources):
 
@@ -98,7 +91,6 @@ def make_cuda_ext(name, module, sources):
                 '-D__CUDA_NO_HALF2_OPERATORS__',
             ]
         })
-
 
 def make_cython_ext(name, module, sources):
     extra_compile_args = None
@@ -115,7 +107,6 @@ def make_cython_ext(name, module, sources):
         extra_compile_args=extra_compile_args)
     extension, = cythonize(extension)
     return extension
-
 
 if __name__ == '__main__':
     write_version_py()
